@@ -102,6 +102,11 @@ public class Vertex implements Comparable<Vertex>
         return solve(a, b, c, d, e, f, intersectPredicate);
     }
 
+    public static boolean vertexInterior(Vertex u, Triangle t){
+        Vertex[] vertices = t.getPoints();
+        return vertexInterior(u,vertices[0], vertices[1], vertices[2]);
+    }
+
     public static boolean vertexInterior(Vertex u, Vertex v1, Vertex v2, Vertex v3)
     {
 	/* check whether u occurs inside the solid triangle defined the by three

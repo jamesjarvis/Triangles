@@ -7,9 +7,9 @@ import java.awt.event.MouseListener;
 import java.util.LinkedList;
 public class Main implements ActionListener, MouseListener{
 
-    public static final int SIZE = 600;
-    public static final int GRAPH_SIZE = 23;
-    public static int SCALE_FACTOR = SIZE/GRAPH_SIZE;
+    static final int SIZE = 600;
+    private static final int GRAPH_SIZE = 23;
+    static int SCALE_FACTOR = SIZE/GRAPH_SIZE;
     /*
     Of course, the graph being created would work from 0-24, with 0,0 being positioned in the bottom left
     But the graphics will seemingly start from the top left, which means all y values have to be inverted
@@ -26,12 +26,12 @@ public class Main implements ActionListener, MouseListener{
     private LinkedList<Route> routes;
 
 
-    Renderer renderer;
+    private Renderer renderer;
 
     private int ticks;
     private boolean start;
 
-    public Main(){
+    private Main(){
         JFrame jframe = new JFrame();
         this.renderer = new Renderer();
 
@@ -58,7 +58,7 @@ public class Main implements ActionListener, MouseListener{
     /*
     Simply adds all the triangles given in my problem set (problem 42)
      */
-    public void initialiseTrianglesProblem42(){
+    private void initialiseTrianglesProblem42(){
         triangles.add(new Triangle(11, 0, 13, 1, 18, 5));
         triangles.add(new Triangle(5, 4, 7, 9, 5, 8));
         triangles.add(new Triangle(2, 3, 4, 11, 2, 6));
@@ -78,7 +78,7 @@ public class Main implements ActionListener, MouseListener{
     }
 
 
-    public void repaint(Graphics g){
+    void repaint(Graphics g){
         background.paint(g);
         for(Triangle triangle:triangles){
             triangle.paint(g);

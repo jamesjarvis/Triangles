@@ -32,8 +32,8 @@ public class Triangle {
         this.npoints = 3;
     }
 
-    boolean checkCollision(Vertex v){
-        return false;
+    Vertex[] getPoints(){
+        return points;
     }
 
     void paint(Graphics g){
