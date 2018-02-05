@@ -5,6 +5,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.LinkedList;
+
+
+/**
+ * This is the Main class, which will hold the main method and the objects
+ * which are required to run the program.
+ * It will also contain the algorithm for searching for a path within the graph.
+ */
 public class Main implements ActionListener, MouseListener{
 
     static final int SIZE = 600;
@@ -19,11 +26,11 @@ public class Main implements ActionListener, MouseListener{
 
     static Main triangleProblem;
 
-    private Background background;
+    private Background background;//This is simply the background with gridlines.
 
-    private LinkedList<Triangle> triangles;
+    private LinkedList<Triangle> triangles;//Contains the triangle 'obstacles'
 
-    private LinkedList<Route> routes;
+    private LinkedList<Route> routes;//Contains all Routes, which themselves contain Vertex objects for each point.
 
 
     private Renderer renderer;
@@ -31,6 +38,9 @@ public class Main implements ActionListener, MouseListener{
     private int ticks;
     private boolean start;
 
+    /**
+     * Constructor for the Main class
+     */
     private Main(){
         JFrame jframe = new JFrame();
         this.renderer = new Renderer();
@@ -42,21 +52,21 @@ public class Main implements ActionListener, MouseListener{
         this.ticks = 0;
         this.start = false;
 
-        initialiseTrianglesProblem42();
+        initialiseTrianglesProblem42();//Adds all the triangles
 
 
         jframe.add(renderer);
         jframe.setTitle("Triangles Visualisation");
         jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        jframe.setResizable(true);
+        jframe.setResizable(false);
         jframe.setSize(SIZE, SIZE+(SCALE_FACTOR));
 
         jframe.setVisible(true);
 
     }
 
-    /*
-    Simply adds all the triangles given in my problem set (problem 42)
+    /**
+     * Simply adds all the triangles which were given in my problem set 42
      */
     private void initialiseTrianglesProblem42(){
         triangles.add(new Triangle(11, 0, 13, 1, 18, 5));
@@ -77,7 +87,10 @@ public class Main implements ActionListener, MouseListener{
         triangles.add(new Triangle(13, 16, 17, 19, 14, 20));
     }
 
-
+    /**
+     * This method repaints the whole graphical representation when called.
+     * @param g - The Graphics object which the painting is applied to
+     */
     void repaint(Graphics g){
         background.paint(g);
         for(Triangle triangle:triangles){
@@ -88,10 +101,18 @@ public class Main implements ActionListener, MouseListener{
         }
     }
 
+    /**
+     * Main method, creates a new instantiation of the Main class.
+     * @param args
+     */
     public static void main(String[] args){
         triangleProblem = new Main();
     }
 
+    /**
+     * Simply used as a time interval creator to repaint the graphical space.
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         ticks++;
@@ -102,11 +123,18 @@ public class Main implements ActionListener, MouseListener{
         }
     }
 
+    /**
+     * Will be used to start or stop the algorithm from searching when clicked on the window
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         start = !start;
     }
 
+    /*
+    The following methods are only there because they need to be.
+     */
     @Override
     public void mousePressed(MouseEvent e) {
 

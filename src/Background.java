@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Simply a class for setting the background colour and the gridlines.
+ */
 public class Background {
 
     private Rectangle background;
@@ -8,6 +11,11 @@ public class Background {
     private final int GRAPH_SIZE;
     private ArrayList<Route> gridlines;
 
+    /**
+     * Constructor of Class Background.
+     * @param SIZE
+     * @param GRAPH_SIZE
+     */
     Background(int SIZE, int GRAPH_SIZE){
         this.background = new Rectangle(0,0,SIZE, SIZE);
         this.backgroundColor = Color.WHITE;
@@ -20,6 +28,10 @@ public class Background {
         }
     }
 
+    /**
+     * paints the background to the Graphics object
+     * @param g
+     */
     void paint(Graphics g){
         for(Route line: gridlines){
             line.paint(g);

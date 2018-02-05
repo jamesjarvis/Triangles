@@ -102,11 +102,26 @@ public class Vertex implements Comparable<Vertex>
         return solve(a, b, c, d, e, f, intersectPredicate);
     }
 
+    /**
+     * Another vertexInterior method which takes a Triangle object rather than 3 Vertex's as a parameter
+     * @param u
+     * @param t
+     * @return
+     */
     public static boolean vertexInterior(Vertex u, Triangle t){
         Vertex[] vertices = t.getPoints();
         return vertexInterior(u,vertices[0], vertices[1], vertices[2]);
     }
 
+    /**
+     * Returns true if u occurs in the interior of the triangle
+     * Returns false if u occurs in the perimeter or outside of the triangle
+     * @param u
+     * @param v1
+     * @param v2
+     * @param v3
+     * @return
+     */
     public static boolean vertexInterior(Vertex u, Vertex v1, Vertex v2, Vertex v3)
     {
 	/* check whether u occurs inside the solid triangle defined the by three
