@@ -57,6 +57,18 @@ public class Route {
         return route.contains(v);
     }
 
+    public Vertex getLast(){
+        return route.getLast();
+    }
+
+    public Vertex getFirst(){
+        return route.getFirst();
+    }
+
+    public void addFirst(Vertex first){
+        route.addFirst(first);
+    }
+
     /**
      * Paints the route, as a line to the Graphics object
      * @param g

@@ -30,7 +30,7 @@ public class Main implements ActionListener, MouseListener{
 
     private LinkedList<Triangle> triangles;//Contains the triangle 'obstacles'
 
-    private LinkedList<Route> routes;//Contains all Routes, which themselves contain Vertex objects for each point.
+    //private LinkedList<Route> routes;//Contains all Routes, which themselves contain Vertex objects for each point.
 
 
     private Renderer renderer;
@@ -47,7 +47,7 @@ public class Main implements ActionListener, MouseListener{
 
         this.background = new Background(SIZE, GRAPH_SIZE);
         this.triangles = new LinkedList<>();
-        this.routes = new LinkedList<>();
+        //this.routes = new LinkedList<>();
 
         this.ticks = 0;
         this.start = false;
@@ -87,6 +87,119 @@ public class Main implements ActionListener, MouseListener{
         triangles.add(new Triangle(13, 16, 17, 19, 14, 20));
     }
 
+
+    private Route problemOne(){
+        return depthFirst(){
+
+        }
+    }
+
+    /**
+     * This returns all the next possible Routes which can be reached from the starting route.
+     * @param startRoute
+     * @return
+     */
+    private LinkedList<Route> nextConfigs(Route startRoute){
+        LinkedList<Route> result = new LinkedList<>();
+
+        for(Triangle triangle: triangles){//This section adds all the reachable triangle vertex's to the nextConfig
+            Vertex[] vertices = triangle.getPoints();
+            for(int i = 0;i<3;i++){
+                result = nextConfigsDecision(startRoute, vertices[i], result);
+            }
+        }
+
+        for(int x = 1; x<GRAPH_SIZE; x++){//This section adds all the reachable Vertices at the edge of the graph
+            Vertex[] vertices= new Vertex[4];
+            vertices[0] = new Vertex(0, x);
+            vertices[1] = new Vertex(GRAPH_SIZE, x);
+            vertices[2] = new Vertex(x, 0);
+            vertices[3] = new Vertex(x, GRAPH_SIZE);
+            for(int y = 0; y<4; y++){
+                result = nextConfigsDecision(startRoute, vertices[y], result);
+            }
+        }
+
+        return result;
+    }
+
+    private LinkedList<Route> nextConfigsDecision(Route startRoute, Vertex vertex, LinkedList<Route> otherNewRoutes){
+        if(acceptable(startRoute, vertex, otherNewRoutes)){
+            if(accessibleVertex(startRoute.getLast(), vertex)){
+                Route route = startRoute;
+                route.addVertex(vertex);
+                otherNewRoutes.add(route);
+            }
+        }
+        return otherNewRoutes;
+    }
+
+    private boolean acceptable(Route startRoute, Vertex newPoint, LinkedList<Route> otherNewRoutes){
+        Route newRoute = startRoute;
+        newRoute.addVertex(newPoint);
+        return !startRoute.equals(newRoute)&&!otherNewRoutes.contains(newRoute);//&&!visitedVertex(newPoint);
+    }
+
+    private boolean accessibleVertex(Vertex start, Vertex end){
+        for(Triangle triangle: triangles){
+            Vertex[] points = triangle.getPoints();
+            for(int i = 0; i<=2;i++){
+                if(!Vertex.linesIntersect(start, end, points[i], points[(i+1)%3])){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /*private boolean visitedVertex(Vertex vertex){
+        for(Route route: routes){
+            if(route.getLast()==vertex){
+                return true;
+            }
+        }
+        return false;
+    }*/
+
+
+
+    /**
+     * This is the depthFirst method as taken straight from the lecture slides
+     * @param config
+     * @param destination
+     * @param depth
+     * @return
+     */
+    private Route depthFirst(Vertex config, Vertex destination, int depth){
+        if(depth==0) return null; else if(config.equals(destination))
+        {
+            Route route = new Route(config);
+            return route;
+        } else
+        {
+            LinkedList<Vertex> result = nextConfigs(config);
+            for(Vertex nextConfig: result){
+                Route route= depthFirst(nextConfig, destination, depth-1)
+                if(route!=null){
+                    route.addFirst(config);
+                    return route;
+                }
+            }
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * This method repaints the whole graphical representation when called.
      * @param g - The Graphics object which the painting is applied to
@@ -96,9 +209,9 @@ public class Main implements ActionListener, MouseListener{
         for(Triangle triangle:triangles){
             triangle.paint(g);
         }
-        for(Route route: routes){
-            route.paint(g);
-        }
+        //for(Route route: routes){
+        //    route.paint(g);
+        //}
     }
 
     /**
