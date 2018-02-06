@@ -32,6 +32,9 @@ public class Main implements ActionListener, MouseListener{
 
     private LinkedList<Route> routes;//Contains all Routes, which themselves contain Vertex objects for each point.
 
+    private LinkedList<Vertex[]> problems;//Contains all the problems to solve
+
+    int index;
 
     private Renderer renderer;
 
@@ -48,11 +51,14 @@ public class Main implements ActionListener, MouseListener{
         this.background = new Background(SIZE, GRAPH_SIZE);
         this.triangles = new LinkedList<>();
         this.routes = new LinkedList<>();
+        this.problems = new LinkedList<>();
+        this.index = 0;
 
         this.ticks = 0;
         this.start = false;
 
         initialiseTrianglesProblem42();//Adds all the triangles
+        initialiseProblems42();
 
 
         jframe.add(renderer);
@@ -60,6 +66,7 @@ public class Main implements ActionListener, MouseListener{
         jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jframe.setResizable(false);
         jframe.setSize(SIZE, SIZE+(SCALE_FACTOR));
+        jframe.addMouseListener(this);
 
         jframe.setVisible(true);
     }
@@ -89,12 +96,7 @@ public class Main implements ActionListener, MouseListener{
     /**
      * Initialises and runs the problems given in problem 42
      */
-    private void solveProblems42(){
-        Vertex start1 = new Vertex(3,1);
-        Vertex end1 = new Vertex(17,19);
-        Route problem1 = depthLimitedIterativeDeepening(start1, end1);
-        routes.add(problem1);
-
+    private void initialiseProblems42(){
         LinkedList<Vertex[]> problems = new LinkedList<>();
         problems.add(new Vertex[]{new Vertex(3, 1), new Vertex(17,19)});
         problems.add(new Vertex[]{new Vertex(11,11), new Vertex(18,6)});
@@ -108,16 +110,15 @@ public class Main implements ActionListener, MouseListener{
         problems.add(new Vertex[]{new Vertex(9,15), new Vertex(18,5)});
         problems.add(new Vertex[]{new Vertex(18,6), new Vertex(5,20)});
         problems.add(new Vertex[]{new Vertex(5,20), new Vertex(18,5)});
+    }
 
-        for(Vertex[] problem: problems){
+    private void solveProblem(int index){
+        if(index>=0&&index<problems.size()){
+            Vertex[] problem = problems.get(index);
             Route solved = depthLimitedIterativeDeepening(problem[0], problem[1]);
             routes.add(solved);
-        }
-
-        int i = 0;
-        for(Route route: routes){
-            System.out.println("Problem "+i+": "+route.toString());
-            i++;
+            System.out.println("Problem "+index+": "+solved.toString());
+            renderer.repaint();
         }
     }
 
@@ -183,7 +184,7 @@ public class Main implements ActionListener, MouseListener{
                 }
             }
         }
-        System.out.println("Can reach vertex "+end.toString()+" from "+start.toString());
+        //System.out.println("Can reach vertex "+end.toString()+" from "+start.toString());
         return true;
     }
 
@@ -291,6 +292,8 @@ public class Main implements ActionListener, MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         start = !start;
+        solveProblem(index);
+        index++;
     }
 
     /*

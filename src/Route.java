@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Random;
 import java.awt.*;
 
 /**
@@ -16,7 +17,18 @@ public class Route {
     Route(Vertex start){
         this.route = new LinkedList<Vertex>();
         route.add(start);
-        this.color = Color.BLUE;
+        Color[] colors= new Color[]{
+                Color.BLUE,
+                Color.CYAN,
+                Color.YELLOW,
+                Color.GREEN,
+                Color.RED,
+                Color.MAGENTA,
+                Color.PINK,
+                Color.BLACK,
+        };
+        Random random = new Random();
+        this.color = colors[random.nextInt(colors.length)];
     }
 
     /**
@@ -29,7 +41,7 @@ public class Route {
         this.route = new LinkedList<Vertex>();
         route.add(start);
         route.add(end);
-        this.color = Color.BLACK;
+        this.color = Color.GRAY;
     }
 
     /**
