@@ -41,6 +41,23 @@ public class Route {
     }
 
     /**
+     * Returns the length of the route
+     * @return
+     */
+    public int length(){
+        return route.size();
+    }
+
+    /**
+     * Returns true if the route contains that Vertex
+     * @param v
+     * @return
+     */
+    public boolean contains(Vertex v){
+        return route.contains(v);
+    }
+
+    /**
      * Paints the route, as a line to the Graphics object
      * @param g
      */
