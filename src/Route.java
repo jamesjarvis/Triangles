@@ -70,4 +70,18 @@ public class Route {
         }
     }
 
+
+    /**
+     * Returns the string representation of the Route
+     * @return
+     */
+    public String toString(){
+        String str = "";
+        str+=route.get(0).toString();
+        for(int i = 1;i<route.size();i++){
+            str+=" "+route.get(i).toString();
+        }
+        return str;
+    }
+
 }

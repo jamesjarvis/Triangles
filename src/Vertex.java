@@ -175,6 +175,10 @@ public class Vertex implements Comparable<Vertex>
         }
     }
 
+    /**
+     * Returns the string representation of the object
+     * @return
+     */
     public String toString()
     {
         return "(" + x + ", " + y + ")";
