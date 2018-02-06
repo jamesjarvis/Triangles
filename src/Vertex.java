@@ -175,6 +175,10 @@ public class Vertex implements Comparable<Vertex>
         }
     }
 
+    public boolean equals(Vertex v){
+        return this.x==v.x&&this.y==v.y;
+    }
+
     /**
      * Returns the string representation of the object
      * @return

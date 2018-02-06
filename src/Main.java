@@ -30,7 +30,7 @@ public class Main implements ActionListener, MouseListener{
 
     private LinkedList<Triangle> triangles;//Contains the triangle 'obstacles'
 
-    //private LinkedList<Route> routes;//Contains all Routes, which themselves contain Vertex objects for each point.
+    private LinkedList<Route> routes;//Contains all Routes, which themselves contain Vertex objects for each point.
 
 
     private Renderer renderer;
@@ -47,7 +47,7 @@ public class Main implements ActionListener, MouseListener{
 
         this.background = new Background(SIZE, GRAPH_SIZE);
         this.triangles = new LinkedList<>();
-        //this.routes = new LinkedList<>();
+        this.routes = new LinkedList<>();
 
         this.ticks = 0;
         this.start = false;
@@ -62,7 +62,6 @@ public class Main implements ActionListener, MouseListener{
         jframe.setSize(SIZE, SIZE+(SCALE_FACTOR));
 
         jframe.setVisible(true);
-
     }
 
     /**
@@ -87,25 +86,63 @@ public class Main implements ActionListener, MouseListener{
         triangles.add(new Triangle(13, 16, 17, 19, 14, 20));
     }
 
+    /**
+     * Initialises and runs the problems given in problem 42
+     */
+    private void solveProblems42(){
+        Vertex start1 = new Vertex(3,1);
+        Vertex end1 = new Vertex(17,19);
+        Route problem1 = depthLimitedIterativeDeepening(start1, end1);
+        routes.add(problem1);
 
-    private Route problemOne(){
-        return depthFirst(){
+        LinkedList<Vertex[]> problems = new LinkedList<>();
+        problems.add(new Vertex[]{new Vertex(3, 1), new Vertex(17,19)});
+        problems.add(new Vertex[]{new Vertex(11,11), new Vertex(18,6)});
+        problems.add(new Vertex[]{new Vertex(2,6), new Vertex(19,7)});
+        problems.add(new Vertex[]{new Vertex(12,8), new Vertex(14,20)});
+        problems.add(new Vertex[]{new Vertex(2,3), new Vertex(19,7)});
+        problems.add(new Vertex[]{new Vertex(13,1), new Vertex(5,20)});
+        problems.add(new Vertex[]{new Vertex(14,9), new Vertex(19,7)});
+        problems.add(new Vertex[]{new Vertex(18,5), new Vertex(5,20)});
+        problems.add(new Vertex[]{new Vertex(1,13), new Vertex(18,5)});
+        problems.add(new Vertex[]{new Vertex(9,15), new Vertex(18,5)});
+        problems.add(new Vertex[]{new Vertex(18,6), new Vertex(5,20)});
+        problems.add(new Vertex[]{new Vertex(5,20), new Vertex(18,5)});
 
+        for(Vertex[] problem: problems){
+            Route solved = depthLimitedIterativeDeepening(problem[0], problem[1]);
+            routes.add(solved);
+        }
+
+        int i = 0;
+        for(Route route: routes){
+            System.out.println("Problem "+i+": "+route.toString());
+            i++;
         }
     }
 
+
     /**
      * This returns all the next possible Routes which can be reached from the starting route.
-     * @param startRoute
+     * @param startVertex
      * @return
      */
-    private LinkedList<Route> nextConfigs(Route startRoute){
-        LinkedList<Route> result = new LinkedList<>();
+    private LinkedList<Vertex> nextConfigs(Vertex startVertex, Vertex goal){
+        LinkedList<Vertex> result = new LinkedList<>();
+
+        Vertex goalCheck = nextConfigsDecision(startVertex, goal, result);
+        if(goalCheck!=null){
+            result.add(goalCheck);
+            return result;
+        }
 
         for(Triangle triangle: triangles){//This section adds all the reachable triangle vertex's to the nextConfig
             Vertex[] vertices = triangle.getPoints();
             for(int i = 0;i<3;i++){
-                result = nextConfigsDecision(startRoute, vertices[i], result);
+                Vertex temp = nextConfigsDecision(startVertex, vertices[i], result);
+                if(temp!=null){
+                    result.add(temp);
+                }
             }
         }
 
@@ -116,40 +153,38 @@ public class Main implements ActionListener, MouseListener{
             vertices[2] = new Vertex(x, 0);
             vertices[3] = new Vertex(x, GRAPH_SIZE);
             for(int y = 0; y<4; y++){
-                result = nextConfigsDecision(startRoute, vertices[y], result);
+                Vertex temp = nextConfigsDecision(startVertex, vertices[y], result);
+                if(temp!=null){
+                    result.add(temp);
+                }
             }
         }
 
         return result;
     }
-
-    private LinkedList<Route> nextConfigsDecision(Route startRoute, Vertex vertex, LinkedList<Route> otherNewRoutes){
-        if(acceptable(startRoute, vertex, otherNewRoutes)){
-            if(accessibleVertex(startRoute.getLast(), vertex)){
-                Route route = startRoute;
-                route.addVertex(vertex);
-                otherNewRoutes.add(route);
+    private Vertex nextConfigsDecision(Vertex startVertex, Vertex vertex, LinkedList<Vertex> otherNewRoutes){
+        if(acceptable(startVertex, vertex, otherNewRoutes)){
+            if(accessibleVertex(startVertex, vertex)){
+                return vertex;
             }
         }
-        return otherNewRoutes;
+        return null;
     }
-
-    private boolean acceptable(Route startRoute, Vertex newPoint, LinkedList<Route> otherNewRoutes){
-        Route newRoute = startRoute;
-        newRoute.addVertex(newPoint);
-        return !startRoute.equals(newRoute)&&!otherNewRoutes.contains(newRoute);//&&!visitedVertex(newPoint);
+    private boolean acceptable(Vertex startVertex, Vertex newPoint, LinkedList<Vertex> otherNewRoutes){
+        return !startVertex.equals(newPoint)&&!otherNewRoutes.contains(newPoint);//&&!visitedVertex(newPoint);
     }
 
     private boolean accessibleVertex(Vertex start, Vertex end){
         for(Triangle triangle: triangles){
             Vertex[] points = triangle.getPoints();
             for(int i = 0; i<=2;i++){
-                if(!Vertex.linesIntersect(start, end, points[i], points[(i+1)%3])){
-                    return true;
+                if(Vertex.linesIntersect(start, end, points[i], points[(i+1)%3])){
+                    return false;
                 }
             }
         }
-        return false;
+        System.out.println("Can reach vertex "+end.toString()+" from "+start.toString());
+        return true;
     }
 
     /*private boolean visitedVertex(Vertex vertex){
@@ -162,6 +197,15 @@ public class Main implements ActionListener, MouseListener{
     }*/
 
 
+    public Route depthLimitedIterativeDeepening(Vertex start, Vertex end){
+        for(int depth = 1;depth<10;depth++){
+            System.out.println(depth);
+            Route route = depthFirst(start, end, depth);
+            if(route!=null) return route;
+        }
+        return null;
+    }
+
 
     /**
      * This is the depthFirst method as taken straight from the lecture slides
@@ -171,15 +215,19 @@ public class Main implements ActionListener, MouseListener{
      * @return
      */
     private Route depthFirst(Vertex config, Vertex destination, int depth){
-        if(depth==0) return null; else if(config.equals(destination))
+        if(depth==0){
+            return null;
+        }
+        else if(config.equals(destination))
         {
+            System.out.println("destination reached");
             Route route = new Route(config);
             return route;
         } else
         {
-            LinkedList<Vertex> result = nextConfigs(config);
+            LinkedList<Vertex> result = nextConfigs(config, destination);
             for(Vertex nextConfig: result){
-                Route route= depthFirst(nextConfig, destination, depth-1)
+                Route route= depthFirst(nextConfig, destination, depth-1);
                 if(route!=null){
                     route.addFirst(config);
                     return route;
@@ -209,9 +257,9 @@ public class Main implements ActionListener, MouseListener{
         for(Triangle triangle:triangles){
             triangle.paint(g);
         }
-        //for(Route route: routes){
-        //    route.paint(g);
-        //}
+        for(Route route: routes){
+            route.paint(g);
+        }
     }
 
     /**
