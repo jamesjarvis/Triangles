@@ -20,7 +20,6 @@ public class Route {
         Color[] colors= new Color[]{
                 Color.BLUE,
                 Color.CYAN,
-                Color.YELLOW,
                 Color.GREEN,
                 Color.RED,
                 Color.MAGENTA,
@@ -41,7 +40,7 @@ public class Route {
         this.route = new LinkedList<Vertex>();
         route.add(start);
         route.add(end);
-        this.color = Color.GRAY;
+        this.color = Color.LIGHT_GRAY;
     }
 
     /**

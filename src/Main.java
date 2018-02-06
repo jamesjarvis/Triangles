@@ -97,7 +97,6 @@ public class Main implements ActionListener, MouseListener{
      * Initialises and runs the problems given in problem 42
      */
     private void initialiseProblems42(){
-        LinkedList<Vertex[]> problems = new LinkedList<>();
         problems.add(new Vertex[]{new Vertex(3, 1), new Vertex(17,19)});
         problems.add(new Vertex[]{new Vertex(11,11), new Vertex(18,6)});
         problems.add(new Vertex[]{new Vertex(2,6), new Vertex(19,7)});
