@@ -1,25 +1,31 @@
+/*
+Author: James Jarvis
+Kent Login: jj333
+ */
+/*
+This class is only used for GUI purposes
+ */
+
 import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * Simply a class for setting the background colour and the gridlines.
  */
-public class Background {
+class Background {
 
     private Rectangle background;
     private Color backgroundColor;
-    private final int GRAPH_SIZE;
     private ArrayList<Route> gridlines;
 
     /**
      * Constructor of Class Background.
-     * @param SIZE
-     * @param GRAPH_SIZE
+     * @param SIZE the size of the GUI window
+     * @param GRAPH_SIZE the size of the graph axis
      */
     Background(int SIZE, int GRAPH_SIZE){
         this.background = new Rectangle(0,0,SIZE, SIZE);
         this.backgroundColor = Color.WHITE;
-        this.GRAPH_SIZE = GRAPH_SIZE;
 
         gridlines = new ArrayList<>();
         for(int i = 0; i<GRAPH_SIZE;i=i+2){
@@ -30,13 +36,11 @@ public class Background {
 
     /**
      * paints the background to the Graphics object
-     * @param g
+     * @param g the graphics object
      */
     void paint(Graphics g){
         for(Route line: gridlines){
             line.paint(g);
         }
-        //g.setColor(backgroundColor);
-        //g.fillRect(background.x, background.y, background.width, background.height);
     }
 }

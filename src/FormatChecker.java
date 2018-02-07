@@ -1,3 +1,9 @@
+/*
+Author: Andy King
+Used by: James Jarvis
+Kent Login: jj333
+ */
+
 import java.util.*;
 import java.io.*;
 

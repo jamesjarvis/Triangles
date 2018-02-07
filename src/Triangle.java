@@ -1,50 +1,31 @@
+/*
+Author: James Jarvis
+Kent Login: jj333
+ */
+/*
+This Class is only used to store representations of the Triangles, and for GUI purposes
+ */
+
 import java.awt.*;
 
 /**
  * Triangle class, for generating a Triangle object
  */
-public class Triangle {
+class Triangle {
 
     //The array of Vertex's is used for comparison with other Vertex objects, for example with Collision.
-    Vertex points[];
-    Polygon triangle;
-    int npoints;
-
-    /**
-     * Constructor for creating a new Triangle with just the array of Vertex's
-     * @param points
-     */
-    public Triangle(Vertex[] points){
-        this.points = points;
-        int[] pointsx = { points[0].get_x()*Main.SCALE_FACTOR, points[1].get_x()*Main.SCALE_FACTOR,points[2].get_x()*Main.SCALE_FACTOR};
-        int[] pointsy = {Main.SIZE-points[0].get_y()*Main.SCALE_FACTOR, Main.SIZE-points[1].get_y()*Main.SCALE_FACTOR,Main.SIZE-points[2].get_y()*Main.SCALE_FACTOR};
-        this.triangle = new Polygon(pointsx,pointsy, 3);
-        this.npoints = 3;
-    }
-
-    /**
-     * Constructor for creating a new Triangle object with arrays of x and y coordinates
-     * @param pointsx
-     * @param pointsy
-     */
-    public Triangle(int[] pointsx, int[] pointsy){
-        this.points = new Vertex[3];
-        for(int i = 0; i<3; i++){
-            points[i] = new Vertex(pointsx[i], pointsy[i]);
-        }
-        //Modify the Polygon so it matched the graph size
-        this.triangle = new Polygon(pointsx,pointsy, 3);
-        this.npoints = 3;
-    }
+    private Vertex points[];
+    private Polygon triangle;
+    private int npoints;
 
     /**
      * Constructor for creating a new Triangle object with individual parameters for each x and y coordinate
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param x3
-     * @param y3
+     * @param x1    first x value
+     * @param y1    first y value
+     * @param x2    second x value
+     * @param y2    second y value
+     * @param x3    third x value
+     * @param y3    third y value
      */
     public Triangle(int x1, int y1, int x2, int y2, int x3, int y3){
         this.points = new Vertex[3];
@@ -59,17 +40,17 @@ public class Triangle {
 
     /**
      * Returns an array of size 3, with Vertex objects for each corner
-     * @return
+     * @return  vertex array of the triangles points
      */
-    Vertex[] getPoints(){
+    public Vertex[] getPoints(){
         return points;
     }
 
     /**
      * Paints the Triangle object
-     * @param g
+     * @param g graphics object
      */
-    void paint(Graphics g){
+    public void paint(Graphics g){
         g.setColor(Color.ORANGE);
 
         g.fillPolygon(triangle);

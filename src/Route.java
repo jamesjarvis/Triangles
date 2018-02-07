@@ -1,3 +1,11 @@
+/*
+Author: James Jarvis
+Kent Login: jj333
+ */
+/*
+This class is only used to store a Line object, mainly for GUI purposes.
+ */
+
 import java.util.LinkedList;
 import java.util.Random;
 import java.awt.*;
@@ -7,15 +15,15 @@ import java.awt.*;
  * which connects various Vertex's together
  */
 public class Route {
-    LinkedList<Vertex> route;
-    Color color;
+    private LinkedList<Vertex> route;
+    private Color color;
 
     /**
      * Constructor for creating a new Route, with only a start vertex.
-     * @param start
+     * @param start initial vertex
      */
-    Route(Vertex start){
-        this.route = new LinkedList<Vertex>();
+    public Route(Vertex start){
+        this.route = new LinkedList<>();
         route.add(start);
         Color[] colors= new Color[]{
                 Color.BLUE,
@@ -33,36 +41,32 @@ public class Route {
     /**
      * Constructor for creating a new Route, with a start and end vertex
      * (Used for creating Grid lines)
-     * @param start
-     * @param end
+     * @param start start vertex
+     * @param end   end vertex
      */
-    Route(Vertex start, Vertex end){
-        this.route = new LinkedList<Vertex>();
+    public Route(Vertex start, Vertex end){
+        this.route = new LinkedList<>();
         route.add(start);
         route.add(end);
         this.color = Color.LIGHT_GRAY;
     }
 
-    /**
+    /*
      * Method for adding a new vertex to the Route
-     * @param vertex
      */
     public void addVertex(Vertex vertex){
         route.add(vertex);
     }
 
-    /**
+    /*
      * Returns the length of the route
-     * @return
      */
     public int length(){
         return route.size();
     }
 
-    /**
+    /*
      * Returns true if the route contains that Vertex
-     * @param v
-     * @return
      */
     public boolean contains(Vertex v){
         return route.contains(v);
@@ -82,7 +86,7 @@ public class Route {
 
     /**
      * Paints the route, as a line to the Graphics object
-     * @param g
+     * @param g graphics object
      */
     public void paint(Graphics g){
         g.setColor(color);
@@ -96,15 +100,14 @@ public class Route {
 
     /**
      * Returns the string representation of the Route
-     * @return
      */
     public String toString(){
-        String str = "";
-        str+=route.get(0).toString();
+        StringBuilder str = new StringBuilder();
+        str.append(route.get(0).toString());
         for(int i = 1;i<route.size();i++){
-            str+=" "+route.get(i).toString();
+            str.append(" ").append(route.get(i).toString());
         }
-        return str;
+        return str.toString();
     }
 
 }

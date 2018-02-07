@@ -1,3 +1,11 @@
+/*
+Author: James Jarvis
+Kent Login: jj333
+ */
+/*
+This class is only for GUI purposes.
+ */
+
 import javax.swing.*;
 import java.awt.Graphics;
 
@@ -8,7 +16,7 @@ public class Renderer extends JPanel {
 
     /**
      * Calls the repaint method in the Main class.
-     * @param g
+     * @param g graphics object
      */
     @Override
     protected void paintComponent(Graphics g){
