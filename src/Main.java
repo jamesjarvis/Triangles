@@ -120,9 +120,13 @@ public class Main implements MouseListener{
         if(index>=0&&index<problems.size()){
             Vertex[] problem = problems.get(index);
             Route solved = depthLimitedIterativeDeepening(problem[0], problem[1]);
-            routes.add(solved);
-            System.out.println("Problem "+index+": "+solved.toString());
-            renderer.repaint();
+            if(solved!=null){
+                routes.add(solved);
+                System.out.println("Problem "+index+": "+solved.toString());
+                renderer.repaint();
+            }else{
+                System.out.println("Problem "+index+": no solution found");
+            }
         }
     }
 
@@ -174,6 +178,7 @@ public class Main implements MouseListener{
     private Vertex nextConfigsDecision(Vertex startVertex, Vertex vertex, LinkedList<Vertex> otherNewRoutes){
         if(acceptable(startVertex, vertex, otherNewRoutes)){
             if(accessibleVertex(startVertex, vertex)){
+                //returns the vertex if it can actually be reached without hitting a triangle and if it not the start vertex or has already been included.
                 return vertex;
             }
         }
@@ -187,11 +192,12 @@ public class Main implements MouseListener{
             Vertex[] points = triangle.getPoints();
             for(int i = 0; i<=2;i++){
                 if(Vertex.linesIntersect(start, end, points[i], points[(i+1)%3])){
+                    //if it passes through a triangle
                     return false;
                 }
             }
         }
-        //System.out.println("Can reach vertex "+end.toString()+" from "+start.toString());
+        //Returns true if the 'end' vertex can be reached from the 'start' vertex without hitting a triangle
         return true;
     }
 
@@ -203,7 +209,7 @@ public class Main implements MouseListener{
      */
     private Route depthLimitedIterativeDeepening(Vertex start, Vertex end){
         for(int depth = 1;depth<10;depth++){
-            System.out.print(depth);
+            System.out.print("Depth: "+depth);
             Route route = depthFirst(start, end, depth);
             if(route!=null) {
                 return route;
