@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.LinkedList;
+import java.io.*;
 
 
 /**
@@ -123,6 +124,17 @@ public class Main implements MouseListener{
             if(solved!=null){
                 routes.add(solved);
                 System.out.println("Problem "+index+": "+solved.toString());
+
+                //This simply writes the output to a file.
+                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(index+".txt"), "utf-8"))) {
+                    writer.write(solved.toString());
+                    System.out.println("Written output to file");
+                }catch(IOException e){
+                    System.out.println("Could not write to file");
+                }
+
+
                 renderer.repaint();
             }else{
                 System.out.println("Problem "+index+": no solution found");
