@@ -11,13 +11,11 @@ public class FormatChecker
 {
     public static void main(String args[])
     {
-        try (BufferedReader br = new BufferedReader(new FileReader(args[0])))
-        {
+        try (BufferedReader br = new BufferedReader(new FileReader(args[0]))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
 
-            while (line != null)
-            {
+            while (line != null) {
                 sb.append(line);
                 sb.append(System.lineSeparator());
                 line = br.readLine();
@@ -28,9 +26,7 @@ public class FormatChecker
                 System.out.println("ok");
             else
                 System.out.println("problem");
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             System.err.println("Caught IOException: " + e.getMessage());
         }
     }
