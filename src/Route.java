@@ -51,6 +51,16 @@ public class Route {
         this.color = Color.LIGHT_GRAY;
     }
 
+    /**
+     * Constructor for creating a new Route, with a start and end vertex
+     * (Used for creating Grid lines)
+     * @param route route
+     */
+    public Route(LinkedList<Vertex> route){
+        this.route = route;
+        this.color = Color.LIGHT_GRAY;
+    }
+
     /*
      * Method for adding a new vertex to the Route
      */
@@ -82,6 +92,14 @@ public class Route {
 
     public void addFirst(Vertex first){
         route.addFirst(first);
+    }
+
+    public void addFirst(Route first) {
+        this.route.addAll(first.getVertices());
+    }
+
+    public LinkedList<Vertex> getVertices() {
+        return route;
     }
 
     /**
