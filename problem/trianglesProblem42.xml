@@ -5,9 +5,11 @@
 	<!ELEMENT triangle (vertex,vertex,vertex)>
 	<!ELEMENT problems (problem*)>
 	<!ELEMENT problem (vertex,vertex)>
+		<!ATTLIST problem id CDATA "0">
 	<!ELEMENT vertex (x,y)>
 	<!ELEMENT x (#PCDATA)>
 	<!ELEMENT y (#PCDATA)>
+		<!ATTLIST vertex position CDATA "na">
 ]>
 <pathfind>
 	<triangles>
@@ -224,121 +226,121 @@
 	</triangles>
 	<problems>
 		<problem id="0">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>3</x>
 				<y>1</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>17</x>
 				<y>19</y>
 			</vertex>
 		</problem>
 		<problem id="1">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>11</x>
 				<y>11</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>18</x>
 				<y>6</y>
 			</vertex>
 		</problem>
 		<problem id="2">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>2</x>
 				<y>6</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>19</x>
 				<y>7</y>
 			</vertex>
 		</problem>
 		<problem id="3">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>12</x>
 				<y>8</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>14</x>
 				<y>20</y>
 			</vertex>
 		</problem>
 		<problem id="4">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>2</x>
 				<y>3</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>19</x>
 				<y>7</y>
 			</vertex>
 		</problem>
 		<problem id="5">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>13</x>
 				<y>1</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>5</x>
 				<y>20</y>
 			</vertex>
 		</problem>
 		<problem id="6">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>14</x>
 				<y>9</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>19</x>
 				<y>7</y>
 			</vertex>
 		</problem>
 		<problem id="7">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>18</x>
 				<y>5</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>5</x>
 				<y>20</y>
 			</vertex>
 		</problem>
 		<problem id="8">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>1</x>
 				<y>13</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>18</x>
 				<y>5</y>
 			</vertex>
 		</problem>
 		<problem id="9">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>9</x>
 				<y>15</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>18</x>
 				<y>5</y>
 			</vertex>
 		</problem>
 		<problem id="10">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>18</x>
 				<y>6</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>5</x>
 				<y>20</y>
 			</vertex>
 		</problem>
 		<problem id="11">
-			<vertex id="start">
+			<vertex position = "start">
 				<x>5</x>
 				<y>20</y>
 			</vertex>
-			<vertex id="end">
+			<vertex position = "end">
 				<x>18</x>
 				<y>5</y>
 			</vertex>
