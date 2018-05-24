@@ -120,12 +120,12 @@ public class Problems{
                     if(vertex.getNodeType() == Node.ELEMENT_NODE) {
                         Element element = (Element) vertex;
 
-                        if(element.getAttribute("id").equals("start")){
+                        if(element.getAttribute("position").equals("start")){
                             problemVertices[0] = new Vertex(
                                     Integer.parseInt(element.getElementsByTagName("x").item(0).getTextContent()),
                                     Integer.parseInt(element.getElementsByTagName("y").item(0).getTextContent())
                             );
-                        }else if(element.getAttribute("id").equals("end")){
+                        }else if(element.getAttribute("position").equals("end")){
                             problemVertices[1] = new Vertex(
                                     Integer.parseInt(element.getElementsByTagName("x").item(0).getTextContent()),
                                     Integer.parseInt(element.getElementsByTagName("y").item(0).getTextContent())

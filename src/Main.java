@@ -81,6 +81,7 @@ public class Main implements MouseListener{
      * @param index The number of the route problem
      */
     private void solveProblem(int index){
+        long starttime = System.nanoTime();
         if(index>=0&&index<problemsdoc.getProblems().size()){
             Vertex[] problem = problemsdoc.getProblems().get(index);
             Route solved = depthLimitedIterativeDeepening(problem[0], problem[1]);
@@ -95,6 +96,8 @@ public class Main implements MouseListener{
                 System.out.println("Problem "+index+": no solution found");
             }
         }
+        long endtime = System.nanoTime();
+        System.out.println(" Took "+(endtime-starttime)/1000000+"ms");
     }
 
     /**
