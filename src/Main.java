@@ -1,8 +1,6 @@
 /*
 Author: James Jarvis
-Kent Login: jj333
- */
-/*
+
 This version has a GUI representation. To run each problem, click on the graph
 that is shown on screen.
  */
@@ -36,13 +34,11 @@ public class Main implements MouseListener{
 
     private Background background;//This is simply the background with gridlines.
 
-    private LinkedList<Triangle> triangles;//Contains the triangle 'obstacles'
-
     private LinkedList<Route> routes;//Contains all Routes, which themselves contain Vertex objects for each point.
 
-    private LinkedList<Vertex[]> problems;//Contains all the problems to solve
-
     private int index;
+
+    private Problems problemsdoc;
 
     private Renderer renderer;
 
@@ -54,15 +50,14 @@ public class Main implements MouseListener{
         this.renderer = new Renderer();
 
         this.background = new Background(SIZE, GRAPH_SIZE);
-        this.triangles = new LinkedList<>();
+
         this.routes = new LinkedList<>();
-        this.problems = new LinkedList<>();
+
         this.index = 0;
 
+        this.problemsdoc = new Problems();
 
-        initialiseTrianglesProblem42();//Adds all the triangles
-        initialiseProblems42();//Adds all the problems
-
+        readProblems();
 
         jframe.add(renderer);
         jframe.setTitle("Triangles Visualisation");
@@ -74,66 +69,26 @@ public class Main implements MouseListener{
         jframe.setVisible(true);
     }
 
-    /*
-     * Simply adds all the triangles which were given in my problem set 42
+    /**
+     * Reads problems in from an xml file
      */
-    private void initialiseTrianglesProblem42(){
-        triangles.add(new Triangle(11, 0, 13, 1, 18, 5));
-        triangles.add(new Triangle(5, 4, 7, 9, 5, 8));
-        triangles.add(new Triangle(2, 3, 4, 11, 2, 6));
-        triangles.add(new Triangle(13, 7, 14, 9, 17, 10));
-        triangles.add(new Triangle(4, 9, 11, 16, 9, 11));
-        triangles.add(new Triangle(11, 3, 19, 7, 18, 10));
-        triangles.add(new Triangle(14, 10, 17, 12, 22, 11));
-        triangles.add(new Triangle(3, 1, 12, 9, 6, 9));
-        triangles.add(new Triangle(9, 11, 14, 12, 14, 19));
-        triangles.add(new Triangle(12, 2, 18, 7, 20, 8));
-        triangles.add(new Triangle(3, 3, 10, 6, 12, 8));
-        triangles.add(new Triangle(9, 15, 16, 19, 14, 15));
-        triangles.add(new Triangle(11, 2, 18, 6, 11, 3));
-        triangles.add(new Triangle(11, 11, 20, 12, 13, 17));
-        triangles.add(new Triangle(1, 13, 2, 13, 5, 20));
-        triangles.add(new Triangle(13, 16, 17, 19, 14, 20));
+    private void readProblems(){
+        problemsdoc.readFile("problem/trianglesProblem42.xml");
     }
 
-    /*
-     * Initialises and runs the problems given in problem 42
-     */
-    private void initialiseProblems42(){
-        problems.add(new Vertex[]{new Vertex(3, 1), new Vertex(17,19)});
-        problems.add(new Vertex[]{new Vertex(11,11), new Vertex(18,6)});
-        problems.add(new Vertex[]{new Vertex(2,6), new Vertex(19,7)});
-        problems.add(new Vertex[]{new Vertex(12,8), new Vertex(14,20)});
-        problems.add(new Vertex[]{new Vertex(2,3), new Vertex(19,7)});
-        problems.add(new Vertex[]{new Vertex(13,1), new Vertex(5,20)});
-        problems.add(new Vertex[]{new Vertex(14,9), new Vertex(19,7)});
-        problems.add(new Vertex[]{new Vertex(18,5), new Vertex(5,20)});
-        problems.add(new Vertex[]{new Vertex(1,13), new Vertex(18,5)});
-        problems.add(new Vertex[]{new Vertex(9,15), new Vertex(18,5)});
-        problems.add(new Vertex[]{new Vertex(18,6), new Vertex(5,20)});
-        problems.add(new Vertex[]{new Vertex(5,20), new Vertex(18,5)});
-    }
-
-    /*
-    runs the depth first algo on the problem at index 'index'
+    /**
+     * runs the depth first algo on the problem at index 'index'
+     * @param index The number of the route problem
      */
     private void solveProblem(int index){
-        if(index>=0&&index<problems.size()){
-            Vertex[] problem = problems.get(index);
+        if(index>=0&&index<problemsdoc.getProblems().size()){
+            Vertex[] problem = problemsdoc.getProblems().get(index);
             Route solved = depthLimitedIterativeDeepening(problem[0], problem[1]);
             if(solved!=null){
                 routes.add(solved);
                 System.out.println("Problem "+index+": "+solved.toString());
 
-                //This simply writes the output to a file.
-                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream(index+".txt"), "utf-8"))) {
-                    writer.write(solved.toString());
-                    System.out.println("Written output to file");
-                }catch(IOException e){
-                    System.out.println("Could not write to file");
-                }
-
+                writeToFile(index,solved);
 
                 renderer.repaint();
             }else{
@@ -142,9 +97,29 @@ public class Main implements MouseListener{
         }
     }
 
+    /**
+     * Simply writes the route to a file in the format specified by Andy King
+     * @param problemNo The number of the route problem
+     * @param route     The final route
+     * @return          If the output was successful
+     */
+    private boolean writeToFile(int problemNo, Route route){
+        String filePath = "problem-solutions/";
 
-
-
+        try (Writer writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        new FileOutputStream(filePath + problemNo + ".txt"),
+                        "utf-8")
+                )
+        ) {
+            writer.write(route.toString());
+            System.out.println("Written output to file");
+        }catch(IOException e){
+            System.out.println("Could not write to file");
+            return false;
+        }
+        return true;
+    }
 
 
     /**
@@ -161,7 +136,7 @@ public class Main implements MouseListener{
             return result;
         }
 
-        for(Triangle triangle: triangles){//This section adds all the reachable triangle vertex's to the nextConfig
+        for(Triangle triangle: problemsdoc.getTriangles()){//This section adds all the reachable triangle vertex's to the nextConfig
             Vertex[] vertices = triangle.getPoints();
             for(int i = 0;i<3;i++){
                 Vertex temp = nextConfigsDecision(startVertex, vertices[i], result);
@@ -200,7 +175,7 @@ public class Main implements MouseListener{
         return !startVertex.equals(newPoint)&&!otherNewRoutes.contains(newPoint);//Returns true if the new vertex is not the start vertex, and has not already been included.
     }
     private boolean accessibleVertex(Vertex start, Vertex end){
-        for(Triangle triangle: triangles){
+        for(Triangle triangle: problemsdoc.getTriangles()){
             Vertex[] points = triangle.getPoints();
             for(int i = 0; i<=2;i++){
                 if(Vertex.linesIntersect(start, end, points[i], points[(i+1)%3])){
@@ -286,7 +261,7 @@ public class Main implements MouseListener{
      */
     void repaint(Graphics g){
         background.paint(g);
-        for(Triangle triangle:triangles){
+        for(Triangle triangle:problemsdoc.getTriangles()){
             triangle.paint(g);
         }
         for(Route route: routes){

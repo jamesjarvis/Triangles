@@ -1,8 +1,6 @@
 /*
 Author: James Jarvis
-Kent Login: jj333
- */
-/*
+
 This Class is only used to store representations of the Triangles, and for GUI purposes
  */
 
@@ -36,6 +34,23 @@ class Triangle {
         int[] pointsy = {Main.SIZE-(points[0].get_y()*Main.SCALE_FACTOR), Main.SIZE-(points[1].get_y()*Main.SCALE_FACTOR),Main.SIZE-(points[2].get_y()*Main.SCALE_FACTOR)};
         this.triangle = new Polygon(pointsx,pointsy, 3);
         this.npoints = 3;
+    }
+
+    public Triangle(){
+        this.points = new Vertex[3];
+        this.triangle = null;
+        this.npoints = 0;
+    }
+
+    public void addVertex(Vertex v){
+        points[npoints] = v;
+        npoints++;
+    }
+
+    public void drawTriangle(){
+        int[] pointsx = {points[0].get_x()*Main.SCALE_FACTOR, points[1].get_x()*Main.SCALE_FACTOR,points[2].get_x()*Main.SCALE_FACTOR};
+        int[] pointsy = {Main.SIZE-(points[0].get_y()*Main.SCALE_FACTOR), Main.SIZE-(points[1].get_y()*Main.SCALE_FACTOR),Main.SIZE-(points[2].get_y()*Main.SCALE_FACTOR)};
+        this.triangle = new Polygon(pointsx,pointsy, npoints);
     }
 
     /**

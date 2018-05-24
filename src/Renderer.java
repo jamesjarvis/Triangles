@@ -1,8 +1,6 @@
 /*
 Author: James Jarvis
-Kent Login: jj333
- */
-/*
+
 This class is only for GUI purposes.
  */
 

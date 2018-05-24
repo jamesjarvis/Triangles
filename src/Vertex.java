@@ -1,9 +1,7 @@
 /*
 Author: Andy King
 Used by: James Jarvis
-Kent Login: jj333
- */
-/*
+
 This class is for Vertex comparisons.
  */
 

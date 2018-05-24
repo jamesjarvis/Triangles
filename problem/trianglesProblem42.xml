@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<!DOCTYPE pathfind[
+	<!ELEMENT pathfind (triangles,problems)>
+	<!ELEMENT triangles (triangle*)>
+	<!ELEMENT triangle (vertex,vertex,vertex)>
+	<!ELEMENT problems (problem*)>
+	<!ELEMENT problem (vertex,vertex)>
+	<!ELEMENT vertex (x,y)>
+	<!ELEMENT x (#PCDATA)>
+	<!ELEMENT y (#PCDATA)>
+]>
+<pathfind>
+	<triangles>
+		<triangle>
+			<vertex>
+				<x>11</x>
+				<y>0</y>
+			</vertex>
+			<vertex>
+				<x>13</x>
+				<y>1</y>
+			</vertex>
+			<vertex>
+				<x>18</x>
+				<y>5</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>5</x>
+				<y>4</y>
+			</vertex>
+			<vertex>
+				<x>7</x>
+				<y>9</y>
+			</vertex>
+			<vertex>
+				<x>5</x>
+				<y>8</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>2</x>
+				<y>3</y>
+			</vertex>
+			<vertex>
+				<x>4</x>
+				<y>11</y>
+			</vertex>
+			<vertex>
+				<x>2</x>
+				<y>6</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>13</x>
+				<y>7</y>
+			</vertex>
+			<vertex>
+				<x>14</x>
+				<y>9</y>
+			</vertex>
+			<vertex>
+				<x>17</x>
+				<y>10</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>4</x>
+				<y>9</y>
+			</vertex>
+			<vertex>
+				<x>11</x>
+				<y>16</y>
+			</vertex>
+			<vertex>
+				<x>9</x>
+				<y>11</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>11</x>
+				<y>3</y>
+			</vertex>
+			<vertex>
+				<x>19</x>
+				<y>7</y>
+			</vertex>
+			<vertex>
+				<x>18</x>
+				<y>10</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>14</x>
+				<y>10</y>
+			</vertex>
+			<vertex>
+				<x>17</x>
+				<y>12</y>
+			</vertex>
+			<vertex>
+				<x>22</x>
+				<y>11</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>3</x>
+				<y>1</y>
+			</vertex>
+			<vertex>
+				<x>12</x>
+				<y>9</y>
+			</vertex>
+			<vertex>
+				<x>6</x>
+				<y>9</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>9</x>
+				<y>11</y>
+			</vertex>
+			<vertex>
+				<x>14</x>
+				<y>12</y>
+			</vertex>
+			<vertex>
+				<x>14</x>
+				<y>19</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>3</x>
+				<y>3</y>
+			</vertex>
+			<vertex>
+				<x>10</x>
+				<y>6</y>
+			</vertex>
+			<vertex>
+				<x>12</x>
+				<y>8</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>9</x>
+				<y>15</y>
+			</vertex>
+			<vertex>
+				<x>16</x>
+				<y>19</y>
+			</vertex>
+			<vertex>
+				<x>14</x>
+				<y>15</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>11</x>
+				<y>2</y>
+			</vertex>
+			<vertex>
+				<x>18</x>
+				<y>6</y>
+			</vertex>
+			<vertex>
+				<x>11</x>
+				<y>3</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>11</x>
+				<y>11</y>
+			</vertex>
+			<vertex>
+				<x>20</x>
+				<y>12</y>
+			</vertex>
+			<vertex>
+				<x>13</x>
+				<y>17</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>1</x>
+				<y>13</y>
+			</vertex>
+			<vertex>
+				<x>2</x>
+				<y>13</y>
+			</vertex>
+			<vertex>
+				<x>5</x>
+				<y>20</y>
+			</vertex>
+		</triangle>
+		<triangle>
+			<vertex>
+				<x>13</x>
+				<y>16</y>
+			</vertex>
+			<vertex>
+				<x>17</x>
+				<y>19</y>
+			</vertex>
+			<vertex>
+				<x>14</x>
+				<y>20</y>
+			</vertex>
+		</triangle>
+	</triangles>
+	<problems>
+		<problem id="0">
+			<vertex id="start">
+				<x>3</x>
+				<y>1</y>
+			</vertex>
+			<vertex id="end">
+				<x>17</x>
+				<y>19</y>
+			</vertex>
+		</problem>
+		<problem id="1">
+			<vertex id="start">
+				<x>11</x>
+				<y>11</y>
+			</vertex>
+			<vertex id="end">
+				<x>18</x>
+				<y>6</y>
+			</vertex>
+		</problem>
+		<problem id="2">
+			<vertex id="start">
+				<x>2</x>
+				<y>6</y>
+			</vertex>
+			<vertex id="end">
+				<x>19</x>
+				<y>7</y>
+			</vertex>
+		</problem>
+		<problem id="3">
+			<vertex id="start">
+				<x>12</x>
+				<y>8</y>
+			</vertex>
+			<vertex id="end">
+				<x>14</x>
+				<y>20</y>
+			</vertex>
+		</problem>
+		<problem id="4">
+			<vertex id="start">
+				<x>2</x>
+				<y>3</y>
+			</vertex>
+			<vertex id="end">
+				<x>19</x>
+				<y>7</y>
+			</vertex>
+		</problem>
+		<problem id="5">
+			<vertex id="start">
+				<x>13</x>
+				<y>1</y>
+			</vertex>
+			<vertex id="end">
+				<x>5</x>
+				<y>20</y>
+			</vertex>
+		</problem>
+		<problem id="6">
+			<vertex id="start">
+				<x>14</x>
+				<y>9</y>
+			</vertex>
+			<vertex id="end">
+				<x>19</x>
+				<y>7</y>
+			</vertex>
+		</problem>
+		<problem id="7">
+			<vertex id="start">
+				<x>18</x>
+				<y>5</y>
+			</vertex>
+			<vertex id="end">
+				<x>5</x>
+				<y>20</y>
+			</vertex>
+		</problem>
+		<problem id="8">
+			<vertex id="start">
+				<x>1</x>
+				<y>13</y>
+			</vertex>
+			<vertex id="end">
+				<x>18</x>
+				<y>5</y>
+			</vertex>
+		</problem>
+		<problem id="9">
+			<vertex id="start">
+				<x>9</x>
+				<y>15</y>
+			</vertex>
+			<vertex id="end">
+				<x>18</x>
+				<y>5</y>
+			</vertex>
+		</problem>
+		<problem id="10">
+			<vertex id="start">
+				<x>18</x>
+				<y>6</y>
+			</vertex>
+			<vertex id="end">
+				<x>5</x>
+				<y>20</y>
+			</vertex>
+		</problem>
+		<problem id="11">
+			<vertex id="start">
+				<x>5</x>
+				<y>20</y>
+			</vertex>
+			<vertex id="end">
+				<x>18</x>
+				<y>5</y>
+			</vertex>
+		</problem>
+	</problems>
+</pathfind>

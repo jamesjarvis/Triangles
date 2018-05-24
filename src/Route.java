@@ -1,8 +1,5 @@
 /*
 Author: James Jarvis
-Kent Login: jj333
- */
-/*
 This class is only used to store a Line object, mainly for GUI purposes.
  */
 
