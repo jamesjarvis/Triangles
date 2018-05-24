@@ -1,8 +1,7 @@
 /*
 Author: James Jarvis
 
-This version has a GUI representation. To run each problem, click on the graph
-that is shown on screen.
+This is just used to handle the loading of problem sets
  */
 
 import javax.xml.parsers.DocumentBuilderFactory;
